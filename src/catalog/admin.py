@@ -41,4 +41,3 @@ class BookInstanceAdmin(admin.ModelAdmin):
             'fields': ('status', 'due_back')
         }),
     )
-
