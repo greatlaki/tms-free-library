@@ -12,6 +12,17 @@ class AuthorAdmin(admin.ModelAdmin):
 admin.site.register(Author, AuthorAdmin)
 
 
-admin.site.register(Book)
+# Register the Admin classes for Book using the decorator
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    pass
+
+
+# Register the Admin classes for BookInstance using the decorator
+@admin.register(BookInstance)
+class BookInstanceAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Genre)
 admin.site.register(BookInstance)
