@@ -7,7 +7,9 @@ class Genre(models.Model):
     """
     Model representing a book genre (e.g. Science Fiction, Non Fiction).
     """
-    name = models.CharField(max_length=200, help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)")
+    name = models.CharField(max_length=200,
+                            help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
+                            )
 
     def __str__(self):
         """
@@ -47,6 +49,10 @@ class Book(models.Model):
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined, so we can specify the object above.
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(args, kwargs)
+        self.id = None
+
     def __str__(self):
         """
         String for representing the Model object.
@@ -64,7 +70,8 @@ class BookInstance(models.Model):
     """
     Model representing a specific copy of a book (i.e. that can be borrowed from the library).
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+    id = models.UUIDField(primary_key=True,
+                          default=uuid.uuid4,
                           help_text="Unique ID for this particular book across whole library")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
@@ -77,7 +84,10 @@ class BookInstance(models.Model):
         ('r', 'Reserved'),
     )
 
-    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Book availability')
+    status = models.CharField(max_length=1,
+                              choices=LOAN_STATUS,
+                              blank=True, default='m',
+                              help_text='Book availability')
 
     class Meta:
         ordering = ["due_back"]
@@ -86,7 +96,7 @@ class BookInstance(models.Model):
         """
         String for representing the Model object
         """
-        return '%s (%s)' % (self.id, self.book.title)
+        return f'{self.id}, {self.book.title}'
 
 
 class Author(models.Model):
@@ -98,6 +108,10 @@ class Author(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField('Died', null=True, blank=True)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(args, kwargs)
+        self.id = None
+
     def get_absolute_url(self):
         """
         Returns the url to access a particular author instance.
@@ -108,4 +122,4 @@ class Author(models.Model):
         """
         String for representing the Model object.
         """
-        return '%s, %s' % (self.last_name, self.first_name)
+        return f'{self.last_name}, {self.first_name}'
