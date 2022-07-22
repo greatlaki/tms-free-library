@@ -49,10 +49,6 @@ class Book(models.Model):
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined, so we can specify the object above.
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
-        self.id = None
-
     def __str__(self):
         """
         String for representing the Model object.
@@ -96,7 +92,7 @@ class BookInstance(models.Model):
         """
         String for representing the Model object
         """
-        return f'{self.id}, {self.book.title}'
+        return '{0} ({1})'.format(self.id, self.book.title)
 
 
 class Author(models.Model):
@@ -108,10 +104,6 @@ class Author(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField('Died', null=True, blank=True)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
-        self.id = None
-
     def get_absolute_url(self):
         """
         Returns the url to access a particular author instance.
@@ -122,4 +114,4 @@ class Author(models.Model):
         """
         String for representing the Model object.
         """
-        return f'{self.last_name}, {self.first_name}'
+        return '{0}, {1}'.format(self.last_name, self.first_name)
