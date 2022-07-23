@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 
 from .models import *
 
@@ -26,3 +27,7 @@ def index(request):
                  'num_authors': num_authors,
                  'num_visits': num_visits},
     )
+
+
+class BookListView(generic.ListView):
+    model = Book
