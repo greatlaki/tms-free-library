@@ -12,6 +12,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+    path(r'borrowed/', views.LoanedBooksAllListView.as_view(), name='all-borrowed'),
 ]
 
 # Add Django site authentication urls (for login, logout, password management)
