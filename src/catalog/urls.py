@@ -10,6 +10,9 @@ urlpatterns = [
     path('author/<int:pk>', views.AuthorDetailView.as_view(), name='author-detail'),
 ]
 
+urlpatterns += [
+    path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+]
 
 # Add Django site authentication urls (for login, logout, password management)
 '''
@@ -25,4 +28,3 @@ accounts/ reset/done/ [name='password_reset_complete']'''
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]
-
