@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 from django.urls import reverse
 import uuid  # Required for unique book instances
@@ -94,6 +96,12 @@ class BookInstance(models.Model):
                               choices=LOAN_STATUS,
                               blank=True, default='m',
                               help_text='Book availability')
+
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False
 
     class Meta:
         ordering = ["due_back"]
